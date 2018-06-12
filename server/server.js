@@ -1,7 +1,7 @@
 // Requires
 
 const express = require('express');
-const path = require('path');
+const path  = require('path');
 const socketIO = require('socket.io');
 const http = require('http');
 
@@ -26,6 +26,21 @@ let io = socketIO(server);
 
 io.on('connection', ( client )=>{
     console.log('Usuario Conectado');
+
+    client.on('disconnect', ()=>{
+        console.log('Usuario desconectado');
+    });
+    client.on('enviarMensaje', ( request, callback )=>{
+        if( request.nombre ) {
+            console.log( `Hola ${ request.nombre }` );
+        }else{
+            console.log( `Hola anonimo` );
+            callback();
+        }
+    });
+    client.emit('enviarMensaje', {
+        mensaje: `Hola Jesus`
+    });
 });
 //Rutas
 
