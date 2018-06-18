@@ -11,24 +11,6 @@
 </body>
 
 <script src="socket.io/socket.io.js" ></script>
-<script>
-    var socket = io();
-    socket.on('connect', function (){
-        console.log('Conectado al servidor');
-    });
-    socket.on('disconnect', function(){
-        console.log('Desconectado del servidor');
-    });
-    socket.emit('enviarMensaje', {
-        nombre1: "Jesus",
-        apellido: "Laucho",
-        tipo: "Administrador"
-    },function(){
-        console.log('No se pudo identificar');
-    });
-    socket.on('enviarMensaje', function( mensaje ){
-        console.log( mensaje );
-    });
-</script>
+<script src="js/socket-custom.js"></script>
 
 </html>

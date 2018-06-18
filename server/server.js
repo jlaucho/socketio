@@ -22,26 +22,9 @@ app.use(function(req, res, next) {
 
 //Carpeta Publica
 app.use( express.static( publicPath ) );
-let io = socketIO(server);
+module.exports.io = socketIO(server);
+require('./sockets/socket');
 
-io.on('connection', ( client )=>{
-    console.log('Usuario Conectado');
-
-    client.on('disconnect', ()=>{
-        console.log('Usuario desconectado');
-    });
-    client.on('enviarMensaje', ( request, callback )=>{
-        if( request.nombre ) {
-            console.log( `Hola ${ request.nombre }` );
-        }else{
-            console.log( `Hola anonimo` );
-            callback();
-        }
-    });
-    client.emit('enviarMensaje', {
-        mensaje: `Hola Jesus`
-    });
-});
 //Rutas
 
 // Escuchar peticiones
